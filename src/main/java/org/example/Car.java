@@ -37,20 +37,23 @@ public class Car implements Runnable {
 
                 // Block until a spot is available
                 semaphore.acquire();
+
                 long waitTime = (System.currentTimeMillis() - startWaitTime) / 1000; // Wait time in seconds
                 System.out.println("Car " + id + " from " + gate + " parked after waiting for " + waitTime + " units of time. (Parking Status: " +
-                        (4 - semaphore.availablePermits()) + " spots occupied)");
+                        (4 - semaphore.availablePermits() ) + " spots occupied)");
             }
 
             // Simulate parking duration
             Thread.sleep(duration * 1000);
 
-            // Log the departure
+
             System.out.println("Car " + id + " from " + gate + " left after " + duration + " units of time. " +
-                    "(Parking Status: " + (4 - semaphore.availablePermits()) + " spots occupied)");
+                    "(Parking Status: " + (4 - semaphore.availablePermits()- 1) + " spots occupied)");
 
             // Release the parking spot
             semaphore.release();
+
+
             ParkingLot.incrementServedCars();
 
         } catch (InterruptedException e) {
