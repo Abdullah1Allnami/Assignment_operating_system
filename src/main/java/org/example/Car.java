@@ -25,7 +25,7 @@ public class Car implements Runnable {
             System.out.println("Car " + id + " from " + gate + " arrived at time " + arrivalTime);
 
             // Acquire semaphore to check parking availability
-            Sema_phore semaphore = parkingLot.getSemaphore();
+            Semaphore semaphore = parkingLot.getSemaphore();
 
             // Try to park if space is available, else wait
             if (semaphore.tryAcquire()) {
@@ -40,19 +40,16 @@ public class Car implements Runnable {
 
                 long waitTime = (System.currentTimeMillis() - startWaitTime) / 1000; // Wait time in seconds
                 System.out.println("Car " + id + " from " + gate + " parked after waiting for " + waitTime + " units of time. (Parking Status: " +
-                        (4 - semaphore.availablePermits() ) + " spots occupied)");
+                        (4 - semaphore.availablePermits()) + " spots occupied)");
             }
 
             // Simulate parking duration
             Thread.sleep(duration * 1000);
 
-
-            System.out.println("Car " + id + " from " + gate + " left after " + duration + " units of time. " +
-                    "(Parking Status: " + (4 - semaphore.availablePermits()- 1) + " spots occupied)");
-
             // Release the parking spot
             semaphore.release();
-
+            System.out.println("Car " + id + " from " + gate + " left after " + duration + " units of time. " +
+                    "(Parking Status: " + (4 - semaphore.availablePermits()) + " spots occupied)");
 
             ParkingLot.incrementServedCars();
 

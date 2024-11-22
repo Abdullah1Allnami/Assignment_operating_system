@@ -4,12 +4,12 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class ParkingLot {
-    private final Sema_phore semaphore;
+    private final Semaphore semaphore;
     private static Map<String, List<Car>> gates = new HashMap<>();
     private static int servedCars = 0;
 
     public ParkingLot(int numberOfSpots) {
-        this.semaphore = new Sema_phore(numberOfSpots);
+        this.semaphore = new Semaphore(numberOfSpots);
     }
 
     public void addCarToGate(String gate, Car car) {
@@ -24,7 +24,7 @@ public class ParkingLot {
         }
     }
 
-    public Sema_phore getSemaphore() {
+    public Semaphore getSemaphore() {
         return semaphore;
     }
 
